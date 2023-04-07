@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailService } from './email.service';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PayComponent implements OnInit {
   PayForm!: FormGroup;
   regex = /^[0-9]{13,19}$/;
-  constructor() {}
+  constructor(private emailService: EmailService) {}
 
   ngOnInit() {
     this.PayForm = new FormGroup({
@@ -39,9 +40,13 @@ export class PayComponent implements OnInit {
   }
 
   submit() {
-    if (this.PayForm.invalid){
-      return
+    if (this.PayForm.invalid) {
+      return;
     }
-    console.log(this.PayForm.value);
+    const emailData = { message: this.PayForm.value };
+    this.emailService.sendEmail(emailData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
   }
 }

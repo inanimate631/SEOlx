@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { PayComponent } from './pay/pay.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmailService } from './pay/email.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, PayComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule ],
+  providers: [EmailService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
